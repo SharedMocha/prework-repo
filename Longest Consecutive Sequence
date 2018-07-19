@@ -1,0 +1,41 @@
+//Longest Consecutive Sequence
+public class Solution {
+    public int longestConsecutive(final List<Integer> A) {
+        Integer[] num = A.toArray(new Integer[0]);
+
+
+        // if array is empty or contains 1 eleme
+        if (num.length == 0 || num.length == 1) return num.length;
+         
+        HashSet<Integer> set = new HashSet<Integer>();
+        int max = 1;
+         
+        // add array elements into the hash set
+        for (int i : num)
+            set.add(i);
+         
+        // For each array element, check consecutive sequence
+        for (int i : num) {
+            int left = i - 1;
+            int right = i + 1;
+            int count = 1;
+             
+            // check left consecutive sequence
+            while (set.contains(left)) {
+                count++;
+                set.remove(left);
+                left--;
+            }
+             
+            // check right consecutive sequence
+            while (set.contains(right)) {
+                count++;
+                set.remove(right);
+                right++;
+            }
+             
+            max = Math.max(count, max);
+        }
+        return max;
+    }
+}
